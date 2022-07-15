@@ -201,8 +201,8 @@
           
       </div>
       <div class="markdown-body">
-        <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51025559/article/details/123721245">https://blog.csdn.net/weixin_51025559/article/details/123721245</a></p>
-<h1 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h1><ul>
+        <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51025559/article/details/123721245">https://blog.csdn.net/weixin_51025559/article/details/123721245</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/caoshangpa?type=blog">https://blog.csdn.net/caoshangpa?type=blog</a></p>
+<h1 id="1-智能指针"><a href="#1-智能指针" class="headerlink" title="1. 智能指针"></a>1. 智能指针</h1><ul>
 <li>智能指针是为了解决new&#x2F;free自由分配内存不当（申请了没释放）而导致的内存泄漏问题而出现的</li>
 <li>智能指针是一个类，这个类的构造函数中传入一个普通指针，析构函数中释放传入的指针。智能指针的类都是栈上的对象，所以当函数（或程序）结束时会自动被释放</li>
 <li>智能指针可以自动释放不再使用的内存，能够有效的防止内存泄漏。</li>
@@ -272,7 +272,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="常见题目"><a href="#常见题目" class="headerlink" title="常见题目"></a>常见题目</h2><ol>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><h2 id="常见题目"><a href="#常见题目" class="headerlink" title="常见题目"></a>常见题目</h2><ol>
 <li><p>智能指针的定义与原理<br>智能指针是一个类，这个类的构造函数中传入一个普通指针，析构函数中释放传入的指针。智能指针的类都是栈上的对象，所以当函数（或程序）结束时会自动被释放</p>
 </li>
 <li><p>shared_ptr计数的原理<br>shared_ptr维护了一个指向control block的指针对象，来记录引用个数，这个引用个数存储在 use_count 成员变量中</p>
@@ -282,6 +282,69 @@
 <p>2）解决方法，使用 弱引用的智能指针 weak_ptr</p>
 </li>
 </ol>
+<hr>
+<h1 id="2-自动类型推导"><a href="#2-自动类型推导" class="headerlink" title="2. 自动类型推导"></a>2. 自动类型推导</h1><h2 id="auto"><a href="#auto" class="headerlink" title="auto"></a>auto</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p><strong>定义</strong></p>
+<ul>
+<li>auto可以在声明变量的时候根据变量初始值的类型自动为此变量选择匹配的类型</li>
+<li>auto的自动类型推断发生在编译期，所以使用auto并不会造成程序运行时效率的降低</li>
+<li>typeid运算符可以输出变量的类型<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> i = <span class="number">10</span>;</span><br><span class="line">cout &lt;&lt; <span class="built_in">typeid</span>(i).<span class="built_in">name</span>() &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+<strong>注意事项</strong></li>
+<li><ol>
+<li>auto 变量必须在定义时初始化，其不能够在一行代码存在二义性<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误 没有在定义时初始化</span></span><br><span class="line"><span class="keyword">auto</span> a;</span><br><span class="line"><span class="comment">// 错误 存在二义性</span></span><br><span class="line"><span class="keyword">auto</span> a = <span class="number">1</span>, b = <span class="string">&#x27;a&#x27;</span>;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><ol start="2">
+<li>在不声明为引用或指针时，auto会忽略掉初始化表达式的引用和CV；在声明为引用或指针时，auto会保留初始化表达式的引用和CV<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">char</span> a = <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">	<span class="type">char</span> *pa = &amp;a;</span><br><span class="line">	<span class="type">char</span> &amp;ra = a;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;a type is &quot;</span> &lt;&lt; <span class="built_in">typeid</span>(a).<span class="built_in">name</span>() &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;pa type is &quot;</span> &lt;&lt; <span class="built_in">typeid</span>(pa).<span class="built_in">name</span>() &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;ra type is &quot;</span> &lt;&lt; <span class="built_in">typeid</span>(ra).<span class="built_in">name</span>() &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">auto</span> b1 = a;</span><br><span class="line">	a = <span class="string">&#x27;a&#x27;</span>;  b1 = <span class="string">&#x27;b&#x27;</span>; cout &lt;&lt; <span class="string">&quot;a = &quot;</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">	<span class="keyword">auto</span> b2 = pa;</span><br><span class="line">	a = <span class="string">&#x27;a&#x27;</span>;  *b2 = <span class="string">&#x27;b&#x27;</span>; cout &lt;&lt; <span class="string">&quot;a = &quot;</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">	<span class="keyword">auto</span> b3 = ra;</span><br><span class="line">	a = <span class="string">&#x27;a&#x27;</span>;  b3 = <span class="string">&#x27;b&#x27;</span>; cout &lt;&lt; <span class="string">&quot;a = &quot;</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">auto</span> c1 = a;</span><br><span class="line">	a = <span class="string">&#x27;a&#x27;</span>;  c1 = <span class="string">&#x27;c&#x27;</span>; cout &lt;&lt; <span class="string">&quot;a = &quot;</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">	<span class="keyword">auto</span>* c2 = pa;</span><br><span class="line">	a = <span class="string">&#x27;a&#x27;</span>;  *c2 = <span class="string">&#x27;c&#x27;</span>; cout &lt;&lt; <span class="string">&quot;a = &quot;</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">	<span class="keyword">auto</span>&amp; c3 = ra;</span><br><span class="line">	a = <span class="string">&#x27;a&#x27;</span>;  c3 = <span class="string">&#x27;c&#x27;</span>; cout &lt;&lt; <span class="string">&quot;a = &quot;</span> &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a type is char</span><br><span class="line">pa type is char * __ptr64</span><br><span class="line">ra type is char</span><br><span class="line">a = a</span><br><span class="line">a = b</span><br><span class="line">a = a</span><br><span class="line">a = a</span><br><span class="line">a = c</span><br><span class="line">a = c</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><ol start="3">
+<li>如果初始化表达式为const或volatile（或者两者兼有），则除去const&#x2F;volatile语义；如果auto关键字带上&amp;号，则不去除const语意<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">auto</span> b = a;		<span class="comment">// b is int ,  b = 2 is ok</span></span><br><span class="line"><span class="keyword">auto</span> &amp;c = a;	<span class="comment">// c is const int , c = 2 error</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><ol start="4">
+<li>初始化表达式为数组时，auto关键字推导类型为指针；如果auto关键字带上&amp;号，则为数组类型<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a[<span class="number">3</span>] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">auto</span> b = a; 	<span class="comment">// b is int*</span></span><br><span class="line"><span class="keyword">auto</span> &amp;c = a; 	<span class="comment">// c is int[3]</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><ol start="5">
+<li>函数或者模板参数不能被声明为 auto，在类中非静态成员变量不能被声明为 auto</li>
+</ol>
+</li>
+</ul>
+<h3 id="常用场景"><a href="#常用场景" class="headerlink" title="常用场景"></a>常用场景</h3><ol>
+<li>用于代替冗长复杂、变量使用范围专一的变量声明<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(std::vector&lt;<span class="type">int</span>&gt;::iterator it = vec.<span class="built_in">begin</span>(); ...)</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> it = vec.<span class="built_in">begin</span>();...)</span><br></pre></td></tr></table></figure></li>
+<li>在使用模板时，用于声明依赖模板参数的变量类型<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T1, <span class="keyword">class</span> T2&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(T1 a, T2 b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">auto</span> c = a + b ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>函数返回占位符</li>
+</ol>
+<ul>
+<li>auto在这里的作用也称为返回值占位，它只是为函数返回值占了一个位置，真正的返回值是后面的decltype(expr)</li>
+<li>为何要将返回值后置呢？如果没有后置，则函数声明时需要将长长的 decltype(expr) 放在函数名前面，这不美观<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T1, <span class="keyword">class</span> T2&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">add</span><span class="params">(T1 a, T2 b)</span> -&gt; <span class="title">decltype</span><span class="params">(a + b)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h2 id="decltype"><a href="#decltype" class="headerlink" title="decltype"></a>decltype</h2><ul>
+<li>decltype 用于推导表达式的类型，表达式在编译器分析阶段得出结果，并不会进行实际计算</li>
+<li>decltype 保留表达式的引用和CV属性</li>
+<li>decltype推导三规则<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.如果e是一个没有带括号的标记符表达式或者类成员访问表达式，那么的decltype(e)就是e所代表的实体的类型</span><br><span class="line">2.如果e是一个函数调用或者一个重载操作符调用，那么decltype(e)就是该函数的返回类型</span><br><span class="line">3.如果e不属于以上所述的情况，则假设e的类型是T：当e是一个左值时，decltype(e)就是T&amp;；当e是一个右值，decltype(e)是T</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h1 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Aaron_1997/article/details/123663316">https://blog.csdn.net/Aaron_1997/article/details/123663316</a><br><strong>左值 右值</strong></p>
+<ul>
+<li>在C++11中所有的值必属于左值、右值两者之一，右值又可以细分为纯右值、将亡值</li>
+<li>可以取地址的、有名字的就是左值</li>
+<li>不能取地址的、没有名字的就是右值，又分为纯右值和将亡值</li>
+<li><ul>
+<li>纯右值 指的是临时变量和不跟对象关联的字面量值</li>
+</ul>
+</li>
+<li><ul>
+<li>将亡值 则是C++11新增的跟右值引用相关的表达式，这样表达式通常是将要被移动的对象（移为他用），比如返回右值引用T&amp;&amp;的函数返回值、std::move的返回值，或者转换为T&amp;&amp;的类型转换函数的返回值。将亡值可以理解为通过“盗取”其他变量内存空间的方式获取到的值。在确保其他变量不再被使用、或即将被销毁时，通过“盗取”的方式可以避免内存空间的释放和分配，能够延长变量值的生命期。<br><strong>左值引用 右值引用</strong></li>
+</ul>
+</li>
+<li>左值引用就是对一个左值进行引用的类型。右值引用就是对一个右值进行引用的类型，事实上，由于右值通常不具有名字，我们也只能通过引用的方式找到它的存在</li>
+<li>右值引用和左值引用都是属于引用类型。无论是声明一个左值引用还是右值引用，都必须立即进行初始化。而其原因可以理解为是引用类型本身自己并不拥有所绑定对象的内存，只是该对象的一个别名。左值引用是具名变量值的别名，而右值引用则是不具名（匿名）变量的别名。</li>
+<li>左值引用通常也不能绑定到右值，但常量左值引用是个“万能”的引用类型。它可以接受非常量左值、常量左值、右值对其进行初始化。不过常量左值所引用的右值在它的“余生”中只能是只读的。相对地，非常量左值只能接受非常量左值对其进行初始化。</li>
+<li>右值值引用通常不能绑定到任何的左值，要想绑定一个左值到右值引用，通常需要std::move()将左值强制转换为右值，例如：</li>
+</ul>
 
       </div>
       
@@ -343,7 +406,7 @@
     <div class="title">目录</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="toc-text">智能指针</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E5%88%86%E7%B1%BB"><span class="toc-text">智能指针分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%A2%98%E7%9B%AE"><span class="toc-text">常见题目</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="toc-text">1. 智能指针</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E5%88%86%E7%B1%BB"><span class="toc-text">智能指针分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81"><span class="toc-text">源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%A2%98%E7%9B%AE"><span class="toc-text">常见题目</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E8%87%AA%E5%8A%A8%E7%B1%BB%E5%9E%8B%E6%8E%A8%E5%AF%BC"><span class="toc-text">2. 自动类型推导</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#auto"><span class="toc-text">auto</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">常用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#decltype"><span class="toc-text">decltype</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8"><span class="toc-text">右值引用</span></a></li></ol>
       
     </div>
   </div>
