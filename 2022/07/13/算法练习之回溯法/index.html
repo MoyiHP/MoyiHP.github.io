@@ -203,19 +203,26 @@
       <div class="markdown-body">
         <p><em>代码随想录 学习刷题笔记</em><br><em>题目来自力扣网</em></p>
 <h1 id="理论基础"><a href="#理论基础" class="headerlink" title="理论基础"></a>理论基础</h1><ul>
-<li>回溯法&#x2F;回溯搜索法，是一种基于递归与穷举的算法，因为本质上是穷举，它的效率并不高</li>
+<li>回溯法&#x2F;回溯搜索法，是一种基于递归与穷举的算法，因为本质上是在解空间上的深度优先遍历，类似穷举，它的效率并不高</li>
 <li>常见的可以利用回溯法解决的问题类型有如下，共同特点在所有集合&#x2F;排列中寻找符合条件的集合&#x2F;排列<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. 组合类问题 如从N个数中按照一定规则找到K个数的集合</span><br><span class="line">2. 切割类问题 如一个字符串中按照一定规则有几种切分方式</span><br><span class="line">3. 子集类问题 如一个N个数的集合有多少符合条件的子集</span><br><span class="line">4. 排列类问题 如N个数按照一定规则有几种可能的排列方式</span><br><span class="line">5. 棋盘类问题 如N皇后问题、求解数独</span><br><span class="line">说明</span><br><span class="line">组合 和 排列 是两个不同的概念，组合不讲求元素的先后顺序，&#123;1,2&#125;和&#123;2,1&#125;是两个相同的组合；排列讲究元素的先后顺序&#123;1,2&#125;和&#123;2,1&#125;是两个不同的排列</span><br></pre></td></tr></table></figure></li>
 <li>回溯法所解决的问题均可以抽象为<strong>树形结构</strong>，集合的大小决定了树的宽度，递归的深度决定了树的深度<pre class="mermaid">graph
 ROOT((ROOT))
 S1((S1))
 S2((S2))
 SI((s.))
-SN((SN))</li>
-</ul>
-<p>S12((S12))<br>S13((S13))<br>S1I((S1.))<br>S1N((S1N))</p>
-<p>ROOT –&gt; S1<br>ROOT –&gt; S2<br>ROOT –&gt; SI<br>ROOT –&gt; SN</p>
-<p>S1 –&gt; S12<br>S1 –&gt; S13<br>S1 –&gt; S1I<br>S1 –&gt; S1N</pre></p>
-<ul>
+SN((SN))
+S12((S12))
+S13((S13))
+S1I((S1.))
+S1N((S1N))
+ROOT --> S1
+ROOT --> S2
+ROOT --> SI
+ROOT --> SN
+S1 --> S12
+S1 --> S13
+S1 --> S1I
+S1 --> S1N</pre></li>
 <li>回溯法的算法模板<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 回溯函数的返回值一般为void, 因为回溯函数大都是求解所有的可能解,所以一般会有全局变量来存储可能解</span></span><br><span class="line"><span class="comment">// 2. 回溯函数的参数一般是不固定的, 需要根据实际逻辑需要补充</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">backtracking</span><span class="params">(参数)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// 3. 回溯函数是需要有终止条件的</span></span><br><span class="line">	<span class="comment">// 一般的终止条件是 到达叶子节点了无法继续深入 | 当前状态已经满足条件了 | 当前状态继续递归下去没有可能满足条件了(剪枝)</span></span><br><span class="line">    <span class="keyword">if</span> (终止条件) </span><br><span class="line">    &#123;</span><br><span class="line">        存放结果;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 在本层上的搜索就是一个for循环来实现</span></span><br><span class="line">    <span class="keyword">for</span> (选择：本层集合中元素（树中节点孩子的数量就是集合的大小）) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 根据本层的每种可能发展 进行处理</span></span><br><span class="line">        处理节点;</span><br><span class="line">        <span class="comment">// 递归</span></span><br><span class="line">        <span class="built_in">backtracking</span>(路径，选择列表);</span><br><span class="line">        回溯，撤销处理结果</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <hr>
@@ -332,7 +339,7 @@ SN((SN))</li>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> </span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;vector&lt;string&gt;&gt; res;</span><br><span class="line">    vector&lt;string&gt; path;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">backtrack</span><span class="params">(string s, <span class="type">int</span> start)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (start &gt;= s.<span class="built_in">size</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            res.<span class="built_in">push_back</span>(path);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = start; i &lt;= s.<span class="built_in">size</span>() - <span class="number">1</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">isPalindrome</span>(s.<span class="built_in">substr</span>(start, i - start + <span class="number">1</span>)))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 处理</span></span><br><span class="line">                path.<span class="built_in">push_back</span>(s.<span class="built_in">substr</span>(start, i - start + <span class="number">1</span>));</span><br><span class="line">                <span class="comment">// 递归</span></span><br><span class="line">                <span class="built_in">backtrack</span>(s, i + <span class="number">1</span>);</span><br><span class="line">                <span class="comment">// 回溯</span></span><br><span class="line">                path.<span class="built_in">pop_back</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isPalindrome</span><span class="params">(string s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>, j = s.<span class="built_in">size</span>() - <span class="number">1</span>; i &lt; j; i++, j--)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (s[i] != s[j])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;string&gt;&gt; <span class="built_in">partition</span>(string s) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (s.<span class="built_in">size</span>() &gt;= <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">backtrack</span>(s, <span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h3 id="T93-复原IP地址"><a href="#T93-复原IP地址" class="headerlink" title="T93 复原IP地址"></a>T93 复原IP地址</h3><p>有效 IP 地址 正好由四个整数（每个整数位于 0 到 255 之间组成，且不能含有前导 0），整数之间用 ‘.’ 分隔。<br>例如：”0.1.2.201” 和 “192.168.1.1” 是 有效 IP 地址，但是 “0.011.255.245”、”192.168.1.312” 和 “<a href="mailto:&#x31;&#57;&#x32;&#46;&#49;&#x36;&#x38;&#x40;&#49;&#46;&#49;">&#x31;&#57;&#x32;&#46;&#49;&#x36;&#x38;&#x40;&#49;&#46;&#49;</a>“ 是 无效 IP 地址。<br>给定一个只包含数字的字符串 s ，用以表示一个 IP 地址，返回所有可能的有效 IP 地址，这些地址可以通过在 s 中插入 ‘.’ 来形成。你 不能 重新排序或删除 s 中的任何数字。你可以按 任何 顺序返回答案。<br><strong>分析</strong></p>
+<h3 id="T93-复原IP地址"><a href="#T93-复原IP地址" class="headerlink" title="T93 复原IP地址"></a>T93 复原IP地址</h3><p>有效 IP 地址 正好由四个整数（每个整数位于 0 到 255 之间组成，且不能含有前导 0），整数之间用 ‘.’ 分隔。<br>例如：”0.1.2.201” 和 “192.168.1.1” 是 有效 IP 地址，但是 “0.011.255.245”、”192.168.1.312” 和 “<a href="mailto:&#x31;&#x39;&#x32;&#x2e;&#49;&#x36;&#56;&#x40;&#49;&#46;&#49;">&#x31;&#x39;&#x32;&#x2e;&#49;&#x36;&#56;&#x40;&#49;&#46;&#49;</a>“ 是 无效 IP 地址。<br>给定一个只包含数字的字符串 s ，用以表示一个 IP 地址，返回所有可能的有效 IP 地址，这些地址可以通过在 s 中插入 ‘.’ 来形成。你 不能 重新排序或删除 s 中的任何数字。你可以按 任何 顺序返回答案。<br><strong>分析</strong></p>
 <ul>
 <li>定参数 ： 一个路径<code>vector&lt;string&gt; path</code> 、一个结果集记录<code>vector&lt;string&gt; res（因为后面返回的也是vector&lt;string&gt; 所以这里索性直接将有效的path组合后再放进res）</code></li>
 <li>定终止条件 ： 整个字符串被分割为4个有效的子串 – PATH中含有3个有效的子串，剩下的部分也是一个有效的子串</li>
@@ -346,49 +353,17 @@ SN((SN))</li>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<hr>
+<h1 id="回溯算法总结"><a href="#回溯算法总结" class="headerlink" title="回溯算法总结"></a>回溯算法总结</h1><h2 id="1-回溯算法的性能分析"><a href="#1-回溯算法的性能分析" class="headerlink" title="1. 回溯算法的性能分析"></a>1. 回溯算法的性能分析</h2><ul>
+<li>回溯算法基于的是在解空间上的深度优先遍历，其解空间&#x2F;搜索路径又可以被视为一颗树，那么其时间复杂度可以认为是 <code>实际搜索生成的节点数目 * 在每个节点上的处理时间复杂度</code> ， 同时因为回溯算法针对不同的问题有着不同的细节上的搜索策略，因而对于实际问题，其实际的时间复杂度是需要实际分析的，不过由于本质是穷举的特性，其时间复杂度一般为<code>指数级时间复杂度</code></li>
+</ul>
+<p>对于组合类问题<br>  前文说过组合类问题的可以改为顺序选取问题，那么依次考虑顺序，每个元素只可能选&#x2F;不选，每种状态即对应搜索树的一个节点，那么实际搜索的节点数目为<code>2^N</code>，而构造的每一个子组合都需要被处理，即一共有</p>
+<p><strong>暂时放在这里 先做点题 看不懂 。。。</strong><br>子集问题分析：</p>
+<p>时间复杂度：O(n * 2n)，因为每一个元素的状态无外乎取与不取，所以时间复杂度为O(2n)，构造每一组子集都需要填进数组，又有需要O(n)，最终时间复杂度：O(n * 2^n)<br>空间复杂度：O(n)，递归深度为n，所以系统栈所用空间为O(n)，每一层递归所用的空间都是常数级别，注意代码里的result和path都是全局变量，就算是放在参数里，传的也是引用，并不会新申请内存空间，最终空间复杂度为O(n)<br>排列问题分析：</p>
+<p>时间复杂度：O(n!)，这个可以从排列的树形图中很明显发现，每一层节点为n，第二层每一个分支都延伸了n-1个分支，再往下又是n-2个分支，所以一直到叶子节点一共就是 n * n-1 * n-2 * … 1 &#x3D; n!。<br>空间复杂度：O(n)，和子集问题同理。<br>组合问题分析：</p>
+<p>时间复杂度：O(n * 2^n)，组合问题其实就是一种子集的问题，所以组合问题最坏的情况，也不会超过子集问题的时间复杂度。<br>空间复杂度：O(n)，和子集问题同理。<br>N皇后问题分析：</p>
+<p>时间复杂度：O(n!) ，其实如果看树形图的话，直觉上是O(n^n)，但皇后之间不能见面所以在搜索的过程中是有剪枝的，最差也就是O（n!），n!表示n * (n-1) * … * 1。<br>空间复杂度：O(n)，和子集问题同理。<br>解数独问题分析：</p>
+<p>时间复杂度：O(9^m) , m是’.’的数目。<br>空间复杂度：O(n2)，递归的深度是n2<br>「一般说道回溯算法的复杂度，都说是指数级别的时间复杂度，这也算是一个概括吧！」<br>————————————————<br>版权声明：本文为CSDN博主「想名字多费事」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46269257/article/details/117129706">https://blog.csdn.net/weixin_46269257/article/details/117129706</a></p>
 
       </div>
       
@@ -433,6 +408,11 @@ SN((SN))</li>
           </div>
           <div class="post-foot-prev">
             
+              <a href="/2022/07/14/C-%E4%B9%8B%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/" target="_self">
+                <span>下一页</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -445,7 +425,7 @@ SN((SN))</li>
     <div class="title">目录</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="toc-text">理论基础</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E7%BB%84%E5%90%88%E7%B1%BB%E9%97%AE%E9%A2%98"><span class="toc-text">1. 组合类问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-text">题目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#T77-%E7%BB%84%E5%90%88"><span class="toc-text">T77 组合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#T216-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8CIII"><span class="toc-text">T216 组合总和III</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#T17-%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E5%AD%97%E6%AF%8D%E7%BB%84%E5%90%88"><span class="toc-text">T17 电话号码的字母组合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#T39-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C"><span class="toc-text">T39 组合总和</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#T40-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C"><span class="toc-text">T40 组合总和</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%88%87%E5%89%B2%E9%97%AE%E9%A2%98"><span class="toc-text">2. 切割问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%90%86%E8%AE%BA%E9%83%A8%E5%88%86"><span class="toc-text">理论部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE-1"><span class="toc-text">题目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#T131-%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E4%B8%B2"><span class="toc-text">T131 分割回文串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#T93-%E5%A4%8D%E5%8E%9FIP%E5%9C%B0%E5%9D%80"><span class="toc-text">T93 复原IP地址</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="toc-text">理论基础</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E7%BB%84%E5%90%88%E7%B1%BB%E9%97%AE%E9%A2%98"><span class="toc-text">1. 组合类问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-text">题目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#T77-%E7%BB%84%E5%90%88"><span class="toc-text">T77 组合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#T216-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8CIII"><span class="toc-text">T216 组合总和III</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#T17-%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E5%AD%97%E6%AF%8D%E7%BB%84%E5%90%88"><span class="toc-text">T17 电话号码的字母组合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#T39-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C"><span class="toc-text">T39 组合总和</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#T40-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C"><span class="toc-text">T40 组合总和</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%88%87%E5%89%B2%E9%97%AE%E9%A2%98"><span class="toc-text">2. 切割问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%90%86%E8%AE%BA%E9%83%A8%E5%88%86"><span class="toc-text">理论部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE-1"><span class="toc-text">题目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#T131-%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E4%B8%B2"><span class="toc-text">T131 分割回文串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#T93-%E5%A4%8D%E5%8E%9FIP%E5%9C%B0%E5%9D%80"><span class="toc-text">T93 复原IP地址</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93"><span class="toc-text">回溯算法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95%E7%9A%84%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="toc-text">1. 回溯算法的性能分析</span></a></li></ol></li></ol>
       
     </div>
   </div>
