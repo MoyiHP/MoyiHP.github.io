@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>计算机图形学 1 前言与数学知识</title>
+      <link href="/2022/10/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6-1-%E5%89%8D%E8%A8%80%E4%B8%8E%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/"/>
+      <url>/2022/10/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6-1-%E5%89%8D%E8%A8%80%E4%B8%8E%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/</url>
+      
+        <content type="html"><![CDATA[<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">深似海 深似海</span><br></pre></td></tr></table></figure><h1 id="计算机图形学-1-前言与数学知识"><a href="#计算机图形学-1-前言与数学知识" class="headerlink" title="计算机图形学 1 前言与数学知识"></a>计算机图形学 1 前言与数学知识</h1><ol><li>碎碎念<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">有意无意 必然偶然的开始接触计算机图形学，接触渲染方面的知识，这一块确实是深邃无比....</span><br><span class="line">无论怎样，这些笔记都只是个人的学习笔记，理解错误之处，希望能够后续改正吧</span><br></pre></td></tr></table></figure></li><li>资料整合<br>[理论体系 GAMES101官网]<a href="https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html">https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html</a><br>[理论体系 GAMES101视频]<a href="https://www.bilibili.com/video/BV1X7411F744">https://www.bilibili.com/video/BV1X7411F744</a><br>[Tiger Book 虎书]<a href="https://pan.baidu.com/s/1WSwD7HJv1QBEXBCo2ZMENg">https://pan.baidu.com/s/1WSwD7HJv1QBEXBCo2ZMENg</a> （提取：n2rx）<br>[理论体系 清华大学胡事民教授]<a href="https://www.bilibili.com/video/BV1at411D7YV">https://www.bilibili.com/video/BV1at411D7YV</a><br>[理论体系 数学与几何]<a href="https://space.bilibili.com/88461692">https://space.bilibili.com/88461692</a></li></ol><p>[API OpenGL 英文原版]<a href="https://learnopengl.com/">https://learnopengl.com/</a><br>[API OpenGL 中文翻译]<a href="https://learnopengl-cn.github/">https://learnopengl-cn.github</a><br>[Unity Shader]<a href="https://www.bilibili.com/read/cv14089761">https://www.bilibili.com/read/cv14089761</a></p><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>  计算机图形学(Computer Graphics，CG)是一种使用数学算法将二维或三维图形转化为计算机显示器的栅格形式的科学，主要研究内容就是研究如何在计算机中表示图形、进行图形的计算、处理和显示。核心目标可以分解为三个基本任务</p><ol><li>表示：如何有效的描述复杂物体图形，如何有效的压缩与解压缩这些数据</li><li>交互：物体图形数据的运算处理，如基于图像和图形的混合绘制技术、自然景物仿真、图形用户接口、虚拟现实、动画技术和可视化技术</li><li>绘制：如何快速有效的绘制物体的图形属性</li></ol><p><strong>CG 与 CV</strong><br>  计算机图形学-CG与计算机视觉CV，二者最大的区别在于输入与输出，从计算机图形学的定义明确说明，计算机图形学的输入为“二维或三维图形”，输出为“显示器的栅格形式的图片”；而计算机视觉是输入通常为“图片”，输出为其从图片中提取或计算得出的信息。<br>  Model &#x2F; Shape – CG(Rendering) –&gt; Image<br>  Model &#x2F; Shape – CG(Modeling , Simulation) –&gt; Model &#x2F; Shape<br>  Image – CV –&gt; Info(Maybe Model &#x2F; Shape &#x2F; Image Processing)</p><p><strong>CG 与 OpenGL &#x2F; DirectX &#x2F; OpenGL ES</strong><br>  计算机图形学CG是一门图形处理与显示成像的计算机领域的科学理论体系，而OpenGL（Open Graphic Library）是一套计算机图形学API（应用程序接口），包含了一系列的控制图形图形的接口函数，甚至于实际上OpenGL本身并不是真正意义上的API，而是一个由Khronos组织制定并维护的规范(Specification)，而这个标准仅规定了函数的执行与输出值，其具体实现常常留给了显卡厂商来编写，亦即显卡驱动（这也就导致了显卡驱动通常是和显卡一一对应的，自行编译OpenGL相关库时需要自行编译源码生成库文件）。<br>  [OpenGL3.3规范]<a href="https://registry.khronos.org/OpenGL/specs/gl/glspec33.core.pdf">https://registry.khronos.org/OpenGL/specs/gl/glspec33.core.pdf</a><br>  OpenGL ES 则是为了适应于移动平台较差的性能而专门定义的一套更为精简的计算机图形学API规范，其中做了很多简化的定义，如只接收三角形的图元输入等。<br><strong>渲染渲染管线 Pipeline</strong><br>  图形渲染管线是指计算机图形学中为将二维或三维的图形数据最终转换为栅格图片输出而做的一系列操作流程</p><pre class="mermaid">graphAPP((Application))VP(Vertex Processing  顶点处理 通过变换将点投影到屏幕空间 逐顶点着色)TP(Triangle Processing 三角形处理 将处理过的顶点连接形成三角形)RASTER(Rasterization 光栅化)FP(Fragment Processing 像素处理 逐像素着色)FO(Framebuffer Operations)DIS((Display))APP --> VPVP --Vertex Stream--> TPTP --Triangle Stream-->RASTERRASTER --Fragment Stream-->FPFP --Shaded Fragments-->FOFO --> DIS</pre><hr><h2 id="数学知识"><a href="#数学知识" class="headerlink" title="数学知识"></a>数学知识</h2><p>  计算机图形学中自始至终处理的都是二维或者三维的图形，那么如何描述图形和图形的变化就是计算机图形学所需的数据基础了。<br>  <em>忘掉简单的公式定义 找寻其中蕴含的意义</em></p><h3 id="虚数"><a href="#虚数" class="headerlink" title="虚数"></a>虚数</h3><p>  在数学中，虚数就是形如<code>a+b*i</code>的数，其中a,b是实数，且b≠0,i² &#x3D; - 1，这种关于虚数的定义总是很形式化的，似乎就是为了解方程<code>X * X = -1</code>而生硬的加入的一种定义而已，然而实际的虚数的定义是很严谨且意义非凡的。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 计算机图形学 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>C11新特性源码阅读</title>
       <link href="/2022/07/15/C11%E6%96%B0%E7%89%B9%E6%80%A7%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/"/>
       <url>/2022/07/15/C11%E6%96%B0%E7%89%B9%E6%80%A7%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/</url>
