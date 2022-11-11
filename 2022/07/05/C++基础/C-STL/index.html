@@ -742,7 +742,7 @@
 <h3 id="accumulate"><a href="#accumulate" class="headerlink" title="accumulate"></a>accumulate</h3><p><code>accumulate(beg,end,val)</code> 计算[beg,end)的元素值的累加和 + val(累加的起始值)</p>
 <h3 id="fill"><a href="#fill" class="headerlink" title="fill"></a>fill</h3><p><code>fill(beg,end,val)</code> 使用val填充[beg,end)</p>
 <hr>
-<h2 id="集合算法"><a href="#集合算法" class="headerlink" title="集合算法"></a>集合算法</h2><p><strong>适用容器须为两个有序的序列</strong><br><strong>注意 dst 的空间开辟</strong></p>
+<h2 id="集合算法"><a href="#集合算法" class="headerlink" title="集合算法"></a>集合算法</h2><p><strong>适用容器须为两个有序的序列！！！ 记得先sort，否则会出现报错</strong><br><strong>注意 dst 的空间开辟</strong></p>
 <h3 id="set-union"><a href="#set-union" class="headerlink" title="set_union"></a>set_union</h3><p><code>set_union(s1.begin(), s1.end(), s2.begin(), s2.end(), s);</code> 求s1 s2的并集并将其放置在s，返回值为 结果部分在s中的最后一个元素的迭代器 itEnd</p>
 <h3 id="set-intersection"><a href="#set-intersection" class="headerlink" title="set_intersection"></a>set_intersection</h3><p><code>set_intersection(s1.begin(), s1.end(), s2.begin(), s2.end(), s);</code> 求s1 s2的交集并将其放置在s，结果部分在s中的最后一个元素的迭代器 itEnd</p>
 <h3 id="set-difference"><a href="#set-difference" class="headerlink" title="set_difference"></a>set_difference</h3><p><code>set_difference(s1.begin(), s1.end(), s2.begin(), s2.end(), s);</code> 求s1 s2的差集并将其放置在s，结果部分在s中的最后一个元素的迭代器 itEnd</p>
