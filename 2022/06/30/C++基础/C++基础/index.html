@@ -195,7 +195,7 @@
           
       </div>
       <div class="markdown-body">
-        <h1 id="基础C程序结构"><a href="#基础C程序结构" class="headerlink" title="基础C程序结构"></a>基础C程序结构</h1><h2 id="段结构"><a href="#段结构" class="headerlink" title="段结构"></a>段结构</h2><p><strong>段结构</strong><br> | – 程序段 ： 程序代码<br> | – BSS段 :  尚未初始化的全局数据<br> | – 数据段 ： 已初始化全局数据<br> | – 堆栈段 ： | –  堆区 ： 手动申请与释放<br>                         | –  栈区 ： 局部变量、函数参数与返回值 自动申请与释放<br>显然 BSS段、数据段属于静态内存分配区域，堆栈区属于动态内存分配区域<br><strong>变量作用域</strong><br>变量存在的位置与“时间” 包括 全局作用域（全局变量，常量）、局部作用域（局部变量）与形式参数<br>系统只针对全局变量做初始化<br>在当前作用域内的变量 屏蔽 更大作用域的同名变量</p>
+        <h1 id="基础C程序结构"><a href="#基础C程序结构" class="headerlink" title="基础C程序结构"></a>基础C程序结构</h1><h2 id="段结构"><a href="#段结构" class="headerlink" title="段结构"></a>段结构</h2><p><strong>段结构</strong><br> | – 程序段–|：程序代码<br> | – BSS段 –|：尚未初始化的全局数据<br> | – 数据段–|：已初始化全局数据<br> | – 堆栈段–|：堆区 ： 手动申请与释放；栈区 ： 局部变量、函数参数与返回值 自动申请与释放<br>显然 BSS段、数据段属于静态内存分配区域，堆栈区属于动态内存分配区域<br><strong>变量作用域</strong><br>变量存在的位置与“时间” 包括 全局作用域（全局变量，常量）、局部作用域（局部变量）与形式参数<br>系统只针对全局变量做初始化<br>在当前作用域内的变量 屏蔽 更大作用域的同名变量</p>
 <p><strong>左值与右值</strong><br>左值：指表达式结束后依然存在的持久对象，对左值可以取地址，具名变量或对象<br>右值：表达式结束后就不再存在的临时对象，对右值不可以取地址，没有名字</p>
 <p><strong>基础内存操作 - 字符串操作</strong></p>
 <ul>
@@ -222,7 +222,7 @@
 <li></li>
 <li>会导致内存泄漏的操作 ： 指针指向改变 与 未释放动态分配的内存</li>
 <li></li>
-<li>防止内存泄漏的方法 ：将内存的分配封装在内存中，于构造函数分配内存，析构函数释放内存 - 智能指针</li>
+<li>防止内存泄漏的方法 ：将内存的分配封装在类中，于构造函数分配内存，析构函数释放内存 - 智能指针</li>
 </ul>
 <hr>
 <h1 id="C与C"><a href="#C与C" class="headerlink" title="C与C++"></a>C与C++</h1><p>C++是基于C添加了面向对象思想的语言，与C的不同主要就是在面向对象思想加入后的类的封装、继承和多态。</p>
@@ -348,16 +348,133 @@
 </ul>
 </li>
 <li><ul>
-<li>&#96;&#96;&#96;c++<br>&#x2F;&#x2F; 这会导致下述情况编译合理<br>void print(MyString str){};<br>int num &#x3D; 3;<br>print(3);<br>&#x2F;&#x2F; 但如果实际想要调用的是 print(MyString &#x3D; “3”) 那么会就会导致代码执行结果与实际预想合<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">+ 于是，可以使用 `explicit 显式的` 来禁止上述情况下的 隐式转换</span><br><span class="line"></span><br><span class="line">###  **extern**</span><br><span class="line">声明一个全局引用 全局函数 全局变量</span><br><span class="line"></span><br><span class="line">1. 用于本文件</span><br><span class="line">+ 在声明后即可使用该变量/函数，即时其声明和初始化在当前程序行的后面</span><br><span class="line">2. 用于其他文件</span><br><span class="line">+ 在声明后即可使用该变量/函数，即时其声明和初始化在其他文件中</span><br><span class="line">3. 不能在extern时对变量做“初始化”，可以后续为其赋值</span><br><span class="line"></span><br><span class="line">###  **multable**</span><br><span class="line">易变的，仅用于修饰类成员变量</span><br><span class="line">该成员变量可以在 const 成员函数中做修改</span><br><span class="line"></span><br><span class="line">###  **thread_local**</span><br><span class="line">C11特性</span><br><span class="line">仅用于变量，不可用于函数</span><br><span class="line">变量仅可在它在其上创建的线程上访问。 变量在创建线程时创建，并在销毁线程时销毁。 每个线程都有其自己的变量副本。</span><br><span class="line"></span><br><span class="line">### **std::atomic**</span><br><span class="line">+ 这是一个模板类型</span><br></pre></td></tr></table></figure>
-template<class T><br>struct atomic:</li>
+<li>&#96;<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这会导致下述情况编译合理</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">(MyString str)</span></span>&#123;&#125;;</span><br><span class="line"><span class="type">int</span> num = <span class="number">3</span>;</span><br><span class="line"><span class="built_in">print</span>(<span class="number">3</span>);</span><br><span class="line"><span class="comment">// 但如果实际想要调用的是 print(MyString = &quot;3&quot;) 那么会就会导致代码执行结果与实际预想合</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>于是，可以使用 <code>explicit 显式的</code> 来禁止上述情况下的 隐式转换</li>
+</ul>
+<h3 id="extern"><a href="#extern" class="headerlink" title="extern"></a><strong>extern</strong></h3><p>声明一个全局引用 全局函数 全局变量</p>
+<ol>
+<li>用于本文件</li>
+</ol>
+<ul>
+<li>在声明后即可使用该变量&#x2F;函数，即时其声明和初始化在当前程序行的后面</li>
+</ul>
+<ol start="2">
+<li>用于其他文件</li>
+</ol>
+<ul>
+<li>在声明后即可使用该变量&#x2F;函数，即时其声明和初始化在其他文件中</li>
+</ul>
+<ol start="3">
+<li>不能在extern时对变量做“初始化”，可以后续为其赋值</li>
+</ol>
+<h3 id="multable"><a href="#multable" class="headerlink" title="multable"></a><strong>multable</strong></h3><p>易变的，仅用于修饰类成员变量<br>该成员变量可以在 const 成员函数中做修改</p>
+<h3 id="thread-local"><a href="#thread-local" class="headerlink" title="thread_local"></a><strong>thread_local</strong></h3><p>C11特性<br>仅用于变量，不可用于函数<br>变量仅可在它在其上创建的线程上访问。 变量在创建线程时创建，并在销毁线程时销毁。 每个线程都有其自己的变量副本。</p>
+<h3 id="std-atomic"><a href="#std-atomic" class="headerlink" title="std::atomic"></a><strong>std::atomic</strong></h3><ul>
+<li>这是一个模板类型</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">template&lt;class T&gt;</span><br><span class="line">struct atomic:</span><br><span class="line"></span><br><span class="line">std::atomic&lt;int&gt; value = 99;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>它的作用在于将目标变量的操作转变为原子操作，从而避免了多线程情况下，对于目标变量的操作因为切换线程而被打断，从而导致结果出错</p>
+<hr>
+<h2 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h2><ul>
+<li>C语言中包含两种类型转换，即 显式类型转换 与 隐式类型转换</li>
+<li><ul>
+<li>显式即 <code>(float)1</code> 隐式即 <code>float b = 0.5</code></li>
+</ul>
+</li>
+<li>C++继承了上述类型转换，更有四种类型转换， 即 static_cast \ const_cast \ reinterpret_cast \ dynamic_cast</li>
+</ul>
+<p><strong>static_cast</strong></p>
+<ul>
+<li><ul>
+<li>用法为 <code>static_cast&lt;type-id&gt; (expression)</code></li>
+</ul>
+</li>
+<li><ul>
+<li>该运算符把 expression 转换为 type-id 类型，但没有运行时类型检查来保证转换的安全性，在上行转换（子类指针转父类指针）是安全的，在下行转换（父类指针转子类指针）是不安全的</li>
+</ul>
+</li>
+<li><ul>
+<li>static_cast 不能转换掉 expression 的 const、volitale 或者 unaligned 属性</li>
 </ul>
 </li>
 </ul>
-<p>std::atomic<int> value &#x3D; 99;</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">+ 它的作用在于将目标变量的操作转变为原子操作，从而避免了多线程情况下，对于目标变量的操作因为切换线程而被打断，从而导致结果出错</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">## 强制类型转换</span><br><span class="line">+ C语言中包含两种类型转换，即 显式类型转换 与 隐式类型转换</span><br><span class="line">+ - 显式即 `(float)1` 隐式即 `float b = 0.5`</span><br><span class="line">+ C++继承了上述类型转换，更有四种类型转换， 即 static_cast \ const_cast \ reinterpret_cast \ dynamic_cast</span><br><span class="line"></span><br><span class="line">**static_cast**</span><br><span class="line">+ - 用法为 `static_cast&lt;type-id&gt; (expression)`</span><br><span class="line">+ - 该运算符把 expression 转换为 type-id 类型，但没有运行时类型检查来保证转换的安全性，在上行转换（子类指针转父类指针）是安全的，在下行转换（父类指针转子类指针）是不安全的</span><br><span class="line">+  - static_cast 不能转换掉 expression 的 const、volitale 或者 unaligned 属性</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">**const_cast**</span><br><span class="line">+  - `const_cast&lt;type-id&gt; (expression)` ; const_cast&lt;&gt;里边的内容必须是引用或者指针</span><br><span class="line">+  - 将常量指针转换为非常量指针，且仍然指向原来的对象；将常量引用转换为非常量引用，且仍然指向原来的对象；去除/添加类型的const 或 volatile 属性</span><br><span class="line"></span><br><span class="line">**reinterpret_cast**</span><br><span class="line">+ - `用法为 reinterpret_cast &lt;type-id&gt; (expression)`, 有三种强制转换用途：</span><br><span class="line">+ - - 1、改变指针或引用的类型</span><br><span class="line">+ - - 2、将指针或引用转换为一个足够长度的整形</span><br><span class="line">+ - - 3、将整型转换为指针或引用类型</span><br><span class="line"></span><br><span class="line">**dynamic_cast**</span><br><span class="line">+ - 其他三种都是编译时完成的，dynamic_cast 是运行时处理的，运行时要进行类型检查</span><br><span class="line">+ - 不能用于内置的基本数据类型的强制转换，只能用于 存在虚函数的父子关系的指针或引用 的强制类中转换，且在下行转换时更为安全（检查 指针实际指向的实例类型，如果 是父类指针指向父类实例，想转子类指针就会报错；如果 是父类指针指向子类实例，想转子类指针是可以的）</span><br><span class="line">+ - 对于指针，转换失败返回 nullptr , 对于引用，转换失败抛出异常</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">## 异常处理</span><br><span class="line">**C异常处理**</span><br><span class="line">+ C语言没有独立的异常处理机制，通常通过一些不正常的返回值来代表异常的出现与否和类型，如返回`-1`代表程序出错</span><br><span class="line">**C++异常处理**</span><br><span class="line">+ C++异常处理的语法为</span><br></pre></td></tr></table></figure>
-<p>try<br>{<br>    &#x2F;&#x2F; 可能出现异常的代码<br>    throw(异常种类)；		<br>}<br>catch(异常种类)<br>{<br>    &#x2F;&#x2F; 异常处理<br>}</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">+ 异常种类可以为基础数据类型,也可以为自定义类，`...`表示匹配所有异常种类，</span><br><span class="line">+ 在抛出异常后的处理代码块中，可以继续向上一级 抛出异常</span><br><span class="line">+ 抛出的异常必须得到处理，否则系统调用 terminate 函数以使程序终止</span><br><span class="line">+ 在抛出异常时，类似于函数执行完毕，抛出异常前的所有局部变量都将被释放，这个称之为`栈解旋`</span><br><span class="line">**异常变量的接收与生命周期**</span><br><span class="line">+ `throw CException(); catch(CException e)` 这种会调用拷贝构造函数以构造e</span><br><span class="line">+ `throw CException(); catch(CException &amp;e)`这种直接使用原有的异常类的引用，较为推荐</span><br><span class="line">+ `throw CException(); catch(CException *e)`异常变量在栈区，进入异常处理部分前，栈解旋导致异常变量已经被释放，注意这种 e 指向的是一个已经被释放的变量，是不安全的，不推荐</span><br><span class="line">+ `throw new CException; catch(CException *e)&#123;... delete e&#125;`异常变量在堆区，e 指向是安全的，不过堆区的内存需要自行申请与释放，否则会导致内存泄漏问题</span><br><span class="line">**异常的多态**</span><br><span class="line">+ 定义多个异常类 `CExpception` `CExpception_MemoryError` `CExpception_DivZeroError`此时可以使用 `catch(CException &amp;e)`同时接受多种子类的异常，并由虚函数实现对他们的分别处理</span><br><span class="line">**系统异常**</span><br><span class="line">+ 头文件`&lt;stdexcept&gt;` 类名 `exception` 构造函数 `exception(“异常描述字符串”)`</span><br><span class="line">+ 异常处理函数(虚函数) `const char* what() const &#123;&#125;`</span><br><span class="line">+ 等待</span><br><span class="line">```c++</span><br><span class="line">// string to char*</span><br><span class="line">string str;</span><br><span class="line">str.c_str();</span><br><span class="line">// char* to string</span><br><span class="line">char* cstr = &quot;.....&quot;</span><br><span class="line">stringt str = string(cstr);</span><br></pre></td></tr></table></figure>
+<p><strong>const_cast</strong></p>
 <ul>
+<li><ul>
+<li><code>const_cast&lt;type-id&gt; (expression)</code> ; const_cast&lt;&gt;里边的内容必须是引用或者指针</li>
+</ul>
+</li>
+<li><ul>
+<li>将常量指针转换为非常量指针，且仍然指向原来的对象；将常量引用转换为非常量引用，且仍然指向原来的对象；去除&#x2F;添加类型的const 或 volatile 属性</li>
+</ul>
+</li>
+</ul>
+<p><strong>reinterpret_cast</strong></p>
+<ul>
+<li><ul>
+<li><code>用法为 reinterpret_cast &lt;type-id&gt; (expression)</code>, 有三种强制转换用途：</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>1、改变指针或引用的类型</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>2、将指针或引用转换为一个足够长度的整形</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><ul>
+<li>3、将整型转换为指针或引用类型</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>dynamic_cast</strong></p>
+<ul>
+<li><ul>
+<li>其他三种都是编译时完成的，dynamic_cast 是运行时处理的，运行时要进行类型检查</li>
+</ul>
+</li>
+<li><ul>
+<li>不能用于内置的基本数据类型的强制转换，只能用于 存在虚函数的父子关系的指针或引用 的强制类中转换，且在下行转换时更为安全（检查 指针实际指向的实例类型，如果 是父类指针指向父类实例，想转子类指针就会报错；如果 是父类指针指向子类实例，想转子类指针是可以的）</li>
+</ul>
+</li>
+<li><ul>
+<li>对于指针，转换失败返回 nullptr , 对于引用，转换失败抛出异常</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><p><strong>C异常处理</strong></p>
+<ul>
+<li>C语言没有独立的异常处理机制，通常通过一些不正常的返回值来代表异常的出现与否和类型，如返回<code>-1</code>代表程序出错<br><strong>C++异常处理</strong></li>
+<li>C++异常处理的语法为</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">try</span><br><span class="line">&#123;</span><br><span class="line">	// 可能出现异常的代码</span><br><span class="line">	throw(异常种类)；		</span><br><span class="line">&#125;</span><br><span class="line">catch(异常种类)</span><br><span class="line">&#123;</span><br><span class="line">	// 异常处理</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>异常种类可以为基础数据类型,也可以为自定义类，<code>...</code>表示匹配所有异常种类，</li>
+<li>在抛出异常后的处理代码块中，可以继续向上一级 抛出异常</li>
+<li>抛出的异常必须得到处理，否则系统调用 terminate 函数以使程序终止</li>
+<li>在抛出异常时，类似于函数执行完毕，抛出异常前的所有局部变量都将被释放，这个称之为<code>栈解旋</code><br><strong>异常变量的接收与生命周期</strong></li>
+<li><code>throw CException(); catch(CException e)</code> 这种会调用拷贝构造函数以构造e</li>
+<li><code>throw CException(); catch(CException &amp;e)</code>这种直接使用原有的异常类的引用，较为推荐</li>
+<li><code>throw CException(); catch(CException *e)</code>异常变量在栈区，进入异常处理部分前，栈解旋导致异常变量已经被释放，注意这种 e 指向的是一个已经被释放的变量，是不安全的，不推荐</li>
+<li><code>throw new CException; catch(CException *e)&#123;... delete e&#125;</code>异常变量在堆区，e 指向是安全的，不过堆区的内存需要自行申请与释放，否则会导致内存泄漏问题<br><strong>异常的多态</strong></li>
+<li>定义多个异常类 <code>CExpception</code> <code>CExpception_MemoryError</code> <code>CExpception_DivZeroError</code>此时可以使用 <code>catch(CException &amp;e)</code>同时接受多种子类的异常，并由虚函数实现对他们的分别处理<br><strong>系统异常</strong></li>
+<li>头文件<code>&lt;stdexcept&gt;</code> 类名 <code>exception</code> 构造函数 <code>exception(“异常描述字符串”)</code></li>
+<li>异常处理函数(虚函数) <code>const char* what() const &#123;&#125;</code></li>
+<li>等待<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// string to char*</span></span><br><span class="line">string str;</span><br><span class="line">str.<span class="built_in">c_str</span>();</span><br><span class="line"><span class="comment">// char* to string</span></span><br><span class="line"><span class="type">char</span>* cstr = <span class="string">&quot;.....&quot;</span></span><br><span class="line">stringt str = <span class="built_in">string</span>(cstr);</span><br></pre></td></tr></table></figure></li>
 <li>可通过基础 系统异常 并重写 what 函数来实现异常处理</li>
 </ul>
 <hr>
@@ -808,7 +925,7 @@ template<class T><br>struct atomic:</li>
     <div class="title">目录</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80C%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84"><span class="toc-text">基础C程序结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AE%B5%E7%BB%93%E6%9E%84"><span class="toc-text">段结构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C%E4%B8%8EC"><span class="toc-text">C与C++</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%8C%87%E9%92%88%E4%B8%8E%E5%BC%95%E7%94%A8"><span class="toc-text">1. 指针与引用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-new-delete-%E4%B8%8E-malloc-free-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">2. new delete 与 malloc free 的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A-%E4%B8%BA%E5%95%A5C-%E5%8F%AF%E4%BB%A5%E5%AE%9E%E7%8E%B0%E5%87%BD%E6%95%B0%E7%9A%84%E9%87%8D%E8%BD%BD"><span class="toc-text">3. 调用约定 - 为啥C++可以实现函数的重载</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E5%9F%BA%E7%A1%80"><span class="toc-text">C++ 基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-x2F-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">数据类型 &#x2F; 关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#volatile-%E5%8A%A8%E6%80%81%E7%9A%84"><span class="toc-text">volatile  动态的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#restrict"><span class="toc-text">restrict</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#define"><span class="toc-text">define</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#inline"><span class="toc-text">inline</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enum"><span class="toc-text">Enum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#wchar-t"><span class="toc-text">wchar_t</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#const"><span class="toc-text">const</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#constexpr"><span class="toc-text">constexpr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#auto"><span class="toc-text">auto</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#register"><span class="toc-text">register</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#static"><span class="toc-text">static</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#explicit-and-implicit"><span class="toc-text">explicit and implicit</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-text">面向对象的特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%81%E8%A3%85-%E7%BB%A7%E6%89%BF-%E5%A4%9A%E6%80%81"><span class="toc-text">封装 继承 多态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB"><span class="toc-text">类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6-%E5%B0%81%E8%A3%85"><span class="toc-text">数据访问修饰符 - 封装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E7%BB%A7%E6%89%BF%E7%B1%BB%E5%9E%8B%E7%AC%A6-%E7%BB%A7%E6%89%BF"><span class="toc-text">类继承类型符 - 继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-%E5%B0%81%E8%A3%85"><span class="toc-text">类成员函数 - 封装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%BF%85%E9%A1%BB%E5%9C%A8%E7%B1%BB%E5%86%85%E9%83%A8%E5%A3%B0%E6%98%8E%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%9C%A8%E5%A4%96%E9%83%A8%E5%AE%9A%E4%B9%89"><span class="toc-text">1. 必须在类内部声明，可以在外部定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">2. 构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">3. 拷贝构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="toc-text">4. 析构函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%8F%8B%E5%85%83%E5%87%BD%E6%95%B0"><span class="toc-text">5. 友元函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0"><span class="toc-text">6.内联函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E8%99%9A%E5%87%BD%E6%95%B0"><span class="toc-text">7.虚函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-text">常见问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E7%89%B9%E6%AE%8A%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD"><span class="toc-text">8. 特殊函数重载</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%89%8D%E7%BD%AE%E8%87%AA%E5%A2%9E%E4%B8%8E%E5%90%8E%E7%BD%AE%E8%87%AA%E5%A2%9E%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="toc-text">1. 前置自增与后置自增运算符重载</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD-%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">2. 赋值运算符重载 拷贝构造函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E6%B5%81%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="toc-text">3. 流操作符重载</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-%E9%87%8D%E8%BD%BD%E4%B8%8B%E6%A0%87%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">4. 重载下标运算符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-%E9%87%8D%E8%BD%BD%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%AC%A6"><span class="toc-text">5. 重载强制类型转换符 ()</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80C%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84"><span class="toc-text">基础C程序结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AE%B5%E7%BB%93%E6%9E%84"><span class="toc-text">段结构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C%E4%B8%8EC"><span class="toc-text">C与C++</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%8C%87%E9%92%88%E4%B8%8E%E5%BC%95%E7%94%A8"><span class="toc-text">1. 指针与引用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-new-delete-%E4%B8%8E-malloc-free-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">2. new delete 与 malloc free 的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A-%E4%B8%BA%E5%95%A5C-%E5%8F%AF%E4%BB%A5%E5%AE%9E%E7%8E%B0%E5%87%BD%E6%95%B0%E7%9A%84%E9%87%8D%E8%BD%BD"><span class="toc-text">3. 调用约定 - 为啥C++可以实现函数的重载</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#C-%E5%9F%BA%E7%A1%80"><span class="toc-text">C++ 基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-x2F-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">数据类型 &#x2F; 关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#volatile-%E5%8A%A8%E6%80%81%E7%9A%84"><span class="toc-text">volatile  动态的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#restrict"><span class="toc-text">restrict</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#define"><span class="toc-text">define</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#inline"><span class="toc-text">inline</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enum"><span class="toc-text">Enum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#wchar-t"><span class="toc-text">wchar_t</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#const"><span class="toc-text">const</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#constexpr"><span class="toc-text">constexpr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#auto"><span class="toc-text">auto</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#register"><span class="toc-text">register</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#static"><span class="toc-text">static</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#explicit-and-implicit"><span class="toc-text">explicit and implicit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#extern"><span class="toc-text">extern</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#multable"><span class="toc-text">multable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thread-local"><span class="toc-text">thread_local</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#std-atomic"><span class="toc-text">std::atomic</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-text">强制类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="toc-text">异常处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-text">面向对象的特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%81%E8%A3%85-%E7%BB%A7%E6%89%BF-%E5%A4%9A%E6%80%81"><span class="toc-text">封装 继承 多态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB"><span class="toc-text">类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6-%E5%B0%81%E8%A3%85"><span class="toc-text">数据访问修饰符 - 封装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E7%BB%A7%E6%89%BF%E7%B1%BB%E5%9E%8B%E7%AC%A6-%E7%BB%A7%E6%89%BF"><span class="toc-text">类继承类型符 - 继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0-%E5%B0%81%E8%A3%85"><span class="toc-text">类成员函数 - 封装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%BF%85%E9%A1%BB%E5%9C%A8%E7%B1%BB%E5%86%85%E9%83%A8%E5%A3%B0%E6%98%8E%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%9C%A8%E5%A4%96%E9%83%A8%E5%AE%9A%E4%B9%89"><span class="toc-text">1. 必须在类内部声明，可以在外部定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">2. 构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">3. 拷贝构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="toc-text">4. 析构函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%8F%8B%E5%85%83%E5%87%BD%E6%95%B0"><span class="toc-text">5. 友元函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0"><span class="toc-text">6.内联函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E8%99%9A%E5%87%BD%E6%95%B0"><span class="toc-text">7.虚函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-text">常见问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E7%89%B9%E6%AE%8A%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD"><span class="toc-text">8. 特殊函数重载</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%89%8D%E7%BD%AE%E8%87%AA%E5%A2%9E%E4%B8%8E%E5%90%8E%E7%BD%AE%E8%87%AA%E5%A2%9E%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="toc-text">1. 前置自增与后置自增运算符重载</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD-%E6%8B%B7%E8%B4%9D%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">2. 赋值运算符重载 拷贝构造函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E6%B5%81%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="toc-text">3. 流操作符重载</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-%E9%87%8D%E8%BD%BD%E4%B8%8B%E6%A0%87%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-text">4. 重载下标运算符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-%E9%87%8D%E8%BD%BD%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%AC%A6"><span class="toc-text">5. 重载强制类型转换符 ()</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
       
     </div>
   </div>

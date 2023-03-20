@@ -11,7 +11,7 @@
   
   <title>
     
-      archive_a: 2022/11 
+      MSI文件 
       
       
       |
@@ -124,264 +124,203 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
 
-<div class="container archives">
-  <div class="post-list">
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2023</span>
-          </h2>
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">MSI文件</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="更新时间"></i>
+          2023-03-15 23:23:10
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="标签"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                    <b>#</b> 面试
+                  </a>
+                </span>
+                
+                <span class="span--tag">
+                  <a href="/tags/MSI/" title="MSI">
+                    <b>#</b> MSI
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h1 id="MSI文件"><a href="#MSI文件" class="headerlink" title="MSI文件"></a>MSI文件</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ol>
+<li><strong>MSI文件</strong>是Windows Installer的数据包</li>
+<li>实际上是一个数据库，包含安装一种产品所需要的信息和在很多安装情形下安装（和卸载）程序所需的指令和数据</li>
+<li>将程序的组成文件与功能关联起来，包含有关安装过程本身的信息：如目标文件夹路径、系统依赖项、安装选项和控制安装过程的属性。</li>
+<li>采用MSI安装的优势在于可以随时彻底删除它们，更改安装选项，即使安装中途出现意想不到的错误，一样可以安全地恢复到以前的状态</li>
+</ol>
+<h2 id="VS-打包MSI"><a href="#VS-打包MSI" class="headerlink" title="VS 打包MSI"></a>VS 打包MSI</h2><ol>
+<li>打开想要发布的项目文件</li>
+<li>安装拓展 ： Visual Studio installer Projects</li>
+<li>点击解决方案-&gt;添加-&gt;新建项目，项目类型选择为 Setup</li>
+<li>此时共计出现三个可编辑文件夹</li>
+</ol>
+<ul>
+<li>Application Folder : 待打包项目文件夹，右键此位置选择项目输出，而后选择待打包项目为主输出和资源附属DLL，其他可选项也可以视情况添加</li>
+<li>User’s Desktop：安装后向用户桌面添加的东西，右键之前添加的项目，选择创建shortcut，并将其放到此位置</li>
+<li>User’s Programs Menu：安装后向用户程序文件夹添加的东西，可以自行规划</li>
+</ul>
+<ol start="5">
+<li>生成当前setup项目</li>
+<li>最后在当前项目 –&gt; debug 文件夹下即可找到打包好的 exe 和 msi 文件</li>
+</ol>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2023/01/01/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%AE%97%E6%B3%95%E7%BB%83%E4%B9%A0%E4%B9%8B%E5%AD%97%E7%AC%A6%E4%B8%B2/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>上一页</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="更新时间"></i>
+              2023-03-15 23:23:10
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="标签"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                        <b>#</b> 面试
+                      </a>
+                    </span>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/MSI/" title="MSI">
+                        <b>#</b> MSI
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2023/03/16/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%AE%97%E6%B3%95%E7%BB%83%E4%B9%A0%E4%B9%8B%E5%8F%8C%E6%8C%87%E9%92%88%E6%B3%95/" target="_self">
+                <span>下一页</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
         </div>
       
-      <div class="post-item" title="算法练习之经典题目与数据结构算法的记录">
-        <div class="time-m-d">03-18</div>
-        <div class="title">
-          <a href="/2023/03/18/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%AE%97%E6%B3%95%E7%BB%83%E4%B9%A0%E4%B9%8B%E7%BB%8F%E5%85%B8%E9%A2%98%E7%9B%AE%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95%E7%9A%84%E8%AE%B0%E5%BD%95/">
-            <span>算法练习之经典题目与数据结构算法的记录</span>
-          </a>
-        </div>
-      </div>
+    </div>
     
-      <div class="post-item" title="算法练习之数组">
-        <div class="time-m-d">03-16</div>
-        <div class="title">
-          <a href="/2023/03/16/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%AE%97%E6%B3%95%E7%BB%83%E4%B9%A0%E4%B9%8B%E5%8F%8C%E6%8C%87%E9%92%88%E6%B3%95/">
-            <span>算法练习之数组</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="MSI文件">
-        <div class="time-m-d">03-15</div>
-        <div class="title">
-          <a href="/2023/03/15/%E5%85%B6%E4%BB%96/MSI%E6%96%87%E4%BB%B6/">
-            <span>MSI文件</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="算法练习之字符串">
-        <div class="time-m-d">01-01</div>
-        <div class="title">
-          <a href="/2023/01/01/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%AE%97%E6%B3%95%E7%BB%83%E4%B9%A0%E4%B9%8B%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-            <span>算法练习之字符串</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="算法练习之字符串">
-        <div class="time-m-d">01-01</div>
-        <div class="title">
-          <a href="/2023/01/01/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%AE%97%E6%B3%95%E7%BB%83%E4%B9%A0%E4%B9%8B%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/">
-            <span>算法练习之字符串</span>
-          </a>
-        </div>
-      </div>
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2022</span>
-          </h2>
-        </div>
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">目录</div>
+    <div class="catalog-content">
       
-      <div class="post-item" title="Vue学习">
-        <div class="time-m-d">11-29</div>
-        <div class="title">
-          <a href="/2022/11/29/WEB/Vue/">
-            <span>Vue学习</span>
-          </a>
-        </div>
-      </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MSI%E6%96%87%E4%BB%B6"><span class="toc-text">MSI文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VS-%E6%89%93%E5%8C%85MSI"><span class="toc-text">VS 打包MSI</span></a></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-      <div class="post-item" title="JavaScript学习">
-        <div class="time-m-d">11-28</div>
-        <div class="title">
-          <a href="/2022/11/28/WEB/JavaScript/">
-            <span>JavaScript学习</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="CSS学习">
-        <div class="time-m-d">11-27</div>
-        <div class="title">
-          <a href="/2022/11/27/WEB/CSS/">
-            <span>CSS学习</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="HTML学习">
-        <div class="time-m-d">11-26</div>
-        <div class="title">
-          <a href="/2022/11/26/WEB/HTML/">
-            <span>HTML学习</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="算法练习之哈希表">
-        <div class="time-m-d">11-03</div>
-        <div class="title">
-          <a href="/2022/11/03/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%AE%97%E6%B3%95%E7%BB%83%E4%B9%A0%E4%B9%8B%E5%93%88%E5%B8%8C%E8%A1%A8/">
-            <span>算法练习之哈希表</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="DOTween源码分析">
-        <div class="time-m-d">10-29</div>
-        <div class="title">
-          <a href="/2022/10/29/Unity/DOTween/DOTween%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">
-            <span>DOTween源码分析</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="设计模式">
-        <div class="time-m-d">10-28</div>
-        <div class="title">
-          <a href="/2022/10/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-            <span>设计模式</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="计算机图形学 1 前言与数学知识">
-        <div class="time-m-d">10-03</div>
-        <div class="title">
-          <a href="/2022/10/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6-1-%E5%89%8D%E8%A8%80%E4%B8%8E%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/">
-            <span>计算机图形学 1 前言与数学知识</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="C11新特性源码阅读">
-        <div class="time-m-d">07-15</div>
-        <div class="title">
-          <a href="/2022/07/15/C++%E5%9F%BA%E7%A1%80/C11%E6%96%B0%E7%89%B9%E6%80%A7%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/">
-            <span>C11新特性源码阅读</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="C++之泛型编程">
-        <div class="time-m-d">07-14</div>
-        <div class="title">
-          <a href="/2022/07/14/C++%E5%9F%BA%E7%A1%80/C-%E4%B9%8B%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/">
-            <span>C++之泛型编程</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="算法练习之回溯法">
-        <div class="time-m-d">07-13</div>
-        <div class="title">
-          <a href="/2022/07/13/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%AE%97%E6%B3%95%E7%BB%83%E4%B9%A0%E4%B9%8B%E5%9B%9E%E6%BA%AF%E6%B3%95/">
-            <span>算法练习之回溯法</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="笔试经历友塔游戏">
-        <div class="time-m-d">07-11</div>
-        <div class="title">
-          <a href="/2022/07/11/%E7%AC%94%E8%AF%95%E9%9D%A2%E8%AF%95/%E7%AC%94%E8%AF%95%E7%BB%8F%E5%8E%86%E5%8F%8B%E5%A1%94%E6%B8%B8%E6%88%8F/">
-            <span>笔试经历友塔游戏</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="笔试经历4399">
-        <div class="time-m-d">07-07</div>
-        <div class="title">
-          <a href="/2022/07/07/%E7%AC%94%E8%AF%95%E9%9D%A2%E8%AF%95/%E7%AC%94%E8%AF%95%E7%BB%8F%E5%8E%864399/">
-            <span>笔试经历4399</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="算法练习之链表">
-        <div class="time-m-d">07-06</div>
-        <div class="title">
-          <a href="/2022/07/06/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%AE%97%E6%B3%95%E7%BB%83%E4%B9%A0%E4%B9%8B%E9%93%BE%E8%A1%A8/">
-            <span>算法练习之链表</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="STL源码阅读">
-        <div class="time-m-d">07-05</div>
-        <div class="title">
-          <a href="/2022/07/05/C++%E5%9F%BA%E7%A1%80/STL%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/">
-            <span>STL源码阅读</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="C++STL">
-        <div class="time-m-d">07-05</div>
-        <div class="title">
-          <a href="/2022/07/05/C++%E5%9F%BA%E7%A1%80/C-STL/">
-            <span>C++STL</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="C++之C11新特性">
-        <div class="time-m-d">07-04</div>
-        <div class="title">
-          <a href="/2022/07/04/C++%E5%9F%BA%E7%A1%80/C-%E4%B9%8BC11%E6%96%B0%E7%89%B9%E6%80%A7/">
-            <span>C++之C11新特性</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="算法练习之数组">
-        <div class="time-m-d">07-03</div>
-        <div class="title">
-          <a href="/2022/07/03/%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/%E7%AE%97%E6%B3%95%E7%BB%83%E4%B9%A0%E4%B9%8B%E6%95%B0%E7%BB%84/">
-            <span>算法练习之数组</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="C++基础">
-        <div class="time-m-d">06-30</div>
-        <div class="title">
-          <a href="/2022/06/30/C++%E5%9F%BA%E7%A1%80/C++%E5%9F%BA%E7%A1%80/">
-            <span>C++基础</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="数据库原理上机实验">
-        <div class="time-m-d">06-21</div>
-        <div class="title">
-          <a href="/2022/06/21/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8E%9F%E7%90%86%E4%B8%8A%E6%9C%BA%E5%AE%9E%E9%AA%8C/">
-            <span>数据库原理上机实验</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="软件/环境 安装/使用">
-        <div class="time-m-d">06-18</div>
-        <div class="title">
-          <a href="/2022/06/18/%E5%85%B6%E4%BB%96/%E8%BD%AF%E4%BB%B6%E8%AE%B0%E5%BD%95/">
-            <span>软件/环境 安装/使用</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+  
+    <script async type="text/javascript" src="/plugins/valine.min.js" onload="loadValineSuc(this)"></script>
+  
+
+  <div id="vcomments"></div>
+
+  <script>
+    function loadValineSuc() {
+      new Valine({
+        el: '#vcomments',
+        appId: 'tJWAP21HnTAP3J9RodjBmGKN-gzGzoHsz',
+        appKey: 'O55G5efQpW0frrpnzt7gFMsa',
+        placeholder: 'Welcome!',
+        avatar: 'retro',
+        lang: 'zh-CN'
+      })
+    }
+  </script>
+
+    <style>
+      .comments-container .v .vempty {
+        display: none!important;
+      }
+    </style>
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         
 <div class="footer">
