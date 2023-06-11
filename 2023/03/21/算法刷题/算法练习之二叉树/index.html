@@ -180,14 +180,14 @@
                 <i class="iconfont icon-tags" title="标签"></i>
                 
                 <span class="span--tag">
-                  <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
-                    <b>#</b> 面试
+                  <a href="/tags/C/" title="C++">
+                    <b>#</b> C++
                   </a>
                 </span>
                 
                 <span class="span--tag">
-                  <a href="/tags/C/" title="C++">
-                    <b>#</b> C++
+                  <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                    <b>#</b> 面试
                   </a>
                 </span>
                 
@@ -323,7 +323,53 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> </span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">countNodes</span><span class="params">(TreeNode* root)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 能够确认其为满二叉树？</span></span><br><span class="line">        <span class="type">int</span> ldepth = <span class="number">0</span>, rdepth = <span class="number">0</span>;</span><br><span class="line">        TreeNode* left = root-&gt;left;</span><br><span class="line">        TreeNode* right = root-&gt;right;</span><br><span class="line">        <span class="keyword">while</span> (left)</span><br><span class="line">        &#123;</span><br><span class="line">            ldepth++;</span><br><span class="line">            left = left-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (right)</span><br><span class="line">        &#123;</span><br><span class="line">            rdepth++;</span><br><span class="line">            right = right-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 是满二叉树</span></span><br><span class="line">        <span class="keyword">if</span> (ldepth == rdepth)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> (<span class="number">2</span> &lt;&lt; ldepth) - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 不是满二叉树</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span> + <span class="built_in">countNodes</span>(root-&gt;left) + <span class="built_in">countNodes</span>(root-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="8-平衡二叉树"><a href="#8-平衡二叉树" class="headerlink" title="8.平衡二叉树"></a>8.平衡二叉树</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/balanced-binary-tree/">https://leetcode.cn/problems/balanced-binary-tree/</a><br>给定一个二叉树，判断它是否是高度平衡的二叉树。本题中，一棵高度平衡二叉树定义为：<br>一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1 。</p>
+<h2 id="8-平衡二叉树"><a href="#8-平衡二叉树" class="headerlink" title="8.平衡二叉树"></a>8.平衡二叉树</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/balanced-binary-tree/">https://leetcode.cn/problems/balanced-binary-tree/</a><br>给定一个二叉树，判断它是否是高度平衡的二叉树。本题中，一棵高度平衡二叉树定义为：<br>一个二叉树<strong>每个节点</strong>的左右两个子树的高度差的绝对值不超过 1 。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> </span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 返回以node为根的平衡二叉树的高度 若该树不为平衡二叉树则返回-1</span></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">getHeight</span><span class="params">(TreeNode* node)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 终止条件 node为空</span></span><br><span class="line">        <span class="keyword">if</span> (!node) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 判断左右子树是否为平衡二叉树 求左右子树高度 </span></span><br><span class="line">        <span class="type">int</span> lHeight = <span class="built_in">getHeight</span>(node-&gt;left);</span><br><span class="line">        <span class="keyword">if</span> (lHeight == <span class="number">-1</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="type">int</span> rHeight = <span class="built_in">getHeight</span>(node-&gt;right);</span><br><span class="line">        <span class="keyword">if</span> (rHeight == <span class="number">-1</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 判断左右子树是否失衡</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">abs</span>(lHeight - rHeight) &gt; <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span> + <span class="built_in">max</span>(lHeight, rHeight);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isBalanced</span><span class="params">(TreeNode* root)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">getHeight</span>(root) == <span class="number">-1</span> ? <span class="literal">false</span> : <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>本题亦可以使用 非递归 的方式来实现，具体为 1. 定义<code>getHeight</code>函数，使用 栈 后序遍历 的方式完成求某个结点深度（同以该结点为根的树的高度）；2. 定义<code>isBanlance</code>函数，使用 栈 后序遍历 的方式对所有结点进行是否为平衡二叉树的判定<br>不过，这种程度的非递归写起来麻烦，而且执行也麻烦，没必要了</p>
+<hr>
+<h2 id="9-二叉树的所有路径"><a href="#9-二叉树的所有路径" class="headerlink" title="9. 二叉树的所有路径"></a>9. 二叉树的所有路径</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/binary-tree-paths/">https://leetcode.cn/problems/binary-tree-paths/</a><br>给你一个二叉树的根节点 root ，按 任意顺序 ，返回所有从根节点到叶子节点的路径。叶子节点 是指没有子节点的节点。</p>
+<p><strong>递归</strong> <strong>回溯</strong></p>
+<p>采用前序遍历的方式，每层首先添加当前结点的值到路径中，而后</p>
+<ol>
+<li>若当前结点为叶子结点，则输出为 一个结果，同时终止递归</li>
+<li>若当前结点不为叶子结点，则继续尝试 左、右 孩子 递归，注意尝试左、右孩子后，要将添加的左、右孩子的操作回溯，避免对后续尝试造成影响</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> </span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 递归回溯</span></span><br><span class="line">    <span class="comment">// 参数 当前结点、当前路径（需要回溯）、结果集</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">traversal</span><span class="params">(TreeNode* cur, vector&lt;<span class="type">int</span>&gt;&amp; path, vector&lt;string&gt;&amp; results)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        path.<span class="built_in">push_back</span>(cur-&gt;val);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 终止条件 当前为叶子结点</span></span><br><span class="line">        <span class="keyword">if</span> (cur-&gt;left == <span class="literal">nullptr</span> &amp;&amp; cur-&gt;right == <span class="literal">nullptr</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            string result;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; path.<span class="built_in">size</span>() - <span class="number">1</span>; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                result += <span class="built_in">to_string</span>(path[i]);</span><br><span class="line">                result += <span class="string">&quot;-&gt;&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            result += <span class="built_in">to_string</span>(path[path.<span class="built_in">size</span>() - <span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">            results.<span class="built_in">emplace_back</span>(result);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 不为叶子结点 继续行进</span></span><br><span class="line">        <span class="keyword">if</span> (cur-&gt;left)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">traversal</span>(cur-&gt;left, path, results);</span><br><span class="line">            path.<span class="built_in">pop_back</span>();    <span class="comment">// 记得要回溯</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (cur-&gt;right)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">traversal</span>(cur-&gt;right, path, results);</span><br><span class="line">            path.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">vector&lt;string&gt; <span class="title">binaryTreePaths</span><span class="params">(TreeNode* root)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="built_in">vector</span>&lt;string&gt;();</span><br><span class="line"></span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; path;</span><br><span class="line">        vector&lt;string&gt; results;</span><br><span class="line">        <span class="built_in">traversal</span>(root, path, results);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> results;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       </div>
       
@@ -346,14 +392,14 @@
                     <i class="iconfont icon-tags" title="标签"></i>
                     
                     <span class="span--tag">
-                      <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
-                        <b>#</b> 面试
+                      <a href="/tags/C/" title="C++">
+                        <b>#</b> C++
                       </a>
                     </span>
                     
                     <span class="span--tag">
-                      <a href="/tags/C/" title="C++">
-                        <b>#</b> C++
+                      <a href="/tags/%E9%9D%A2%E8%AF%95/" title="面试">
+                        <b>#</b> 面试
                       </a>
                     </span>
                     
@@ -374,6 +420,11 @@
           </div>
           <div class="post-foot-prev">
             
+              <a href="/2023/03/29/%E6%B8%B8%E6%88%8F/High%20On%20Life%20XBoxPC%E7%89%88%20%E6%B1%89%E5%8C%96/" target="_self">
+                <span>下一页</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -386,7 +437,7 @@
     <div class="title">目录</div>
     <div class="catalog-content">
       
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E7%BB%83%E4%B9%A0%E4%B9%8B%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-text">算法练习之二叉树</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="toc-text">理论基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86"><span class="toc-text">1. 二叉树的遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86"><span class="toc-text">递归遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="toc-text">前序遍历</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E9%81%8D%E5%8E%86"><span class="toc-text">迭代遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E8%BF%AD%E4%BB%A3%E9%81%8D%E5%8E%86"><span class="toc-text">统一迭代遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="toc-text">层序遍历</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-text">2. 翻转二叉树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-text">3.对称二叉树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6"><span class="toc-text">4. 二叉树的最大深度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-N%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6"><span class="toc-text">5. N叉树的最大深度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6"><span class="toc-text">6. 二叉树的最小深度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%BB%93%E7%82%B9%E4%B8%AA%E6%95%B0"><span class="toc-text">7. 完全二叉树的结点个数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-text">8.平衡二叉树</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E7%BB%83%E4%B9%A0%E4%B9%8B%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-text">算法练习之二叉树</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="toc-text">理论基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86"><span class="toc-text">1. 二叉树的遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86"><span class="toc-text">递归遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="toc-text">前序遍历</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E9%81%8D%E5%8E%86"><span class="toc-text">迭代遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E8%BF%AD%E4%BB%A3%E9%81%8D%E5%8E%86"><span class="toc-text">统一迭代遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="toc-text">层序遍历</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-text">2. 翻转二叉树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-text">3.对称二叉树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6"><span class="toc-text">4. 二叉树的最大深度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-N%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6"><span class="toc-text">5. N叉树的最大深度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6"><span class="toc-text">6. 二叉树的最小深度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%BB%93%E7%82%B9%E4%B8%AA%E6%95%B0"><span class="toc-text">7. 完全二叉树的结点个数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-text">8.平衡二叉树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%89%80%E6%9C%89%E8%B7%AF%E5%BE%84"><span class="toc-text">9. 二叉树的所有路径</span></a></li></ol></li></ol>
       
     </div>
   </div>
